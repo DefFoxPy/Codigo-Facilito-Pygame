@@ -35,6 +35,8 @@ while True:
 	# determina la distancia entre los centros de los circulos
 	dist = math.hypot(rect1.x - rect2.x, rect1.y - rect2.y)
 
+	message = 'La distancia es de {} pixeles'.format(str(int(dist)))
+
 	# distancia menor a la suma de los radios
 	if dist < (64 + 64): 
 		message = 'Existe una colisión'
@@ -47,4 +49,5 @@ while True:
 	screen.blit(image1, rect1)
 	screen.blit(image2, rect2)
 	screen.blit(text, text_rect)
+	pygame.draw.line(screen, black, rect1.center, rect2.center, 2)
 	pygame.display.update()
