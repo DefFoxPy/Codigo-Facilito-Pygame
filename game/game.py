@@ -1,12 +1,14 @@
 import pygame
 import sys
 
+from .config import *
+
 class Game:
 	def __init__(self):
 		pygame.init()
 
-		self.surface = pygame.display.set_mode((800, 400))
-		pygame.display.set_caption("Facilito Game!!")
+		self.surface = pygame.display.set_mode((WIDTH, HEIGHT))
+		pygame.display.set_caption(TITLE)
 
 		self.running = True
 
