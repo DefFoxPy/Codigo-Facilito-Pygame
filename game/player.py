@@ -18,11 +18,14 @@ class Player(pygame.sprite.Sprite):
 		self.vel_y = 0
 
 	def validate_platform(self, platform):
-		resultado = pygame.sprite.collide_rect(self, platform)
+		result = pygame.sprite.collide_rect(self, platform)
 
-		if resultado:
+		if result:
 			self.vel_y = 0
 			self.pos_y = platform.rect.top
+
+	def jump(self):
+		self.vel_y = -23
 
 	def update_pos(self):
 		self.vel_y += PLAYER_GRAV

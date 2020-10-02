@@ -35,16 +35,21 @@ class Game:
 	def run(self):
 		while self.running:
 			self.events()
-			self.draw()
 			self.update()
+			self.draw()
+			reloj.tick(60)
 
 	def events(self):
-		reloj.tick(60)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				self.running = False
 				pygame.quit()
 				sys.exit()
+
+		key = pygame.key.get_pressed()
+
+		if key[pygame.K_SPACE]:
+			self.player.jump()
 
 	def draw(self):
 		self.surface.fill(BLACK)
@@ -53,9 +58,9 @@ class Game:
 	def update(self):
 		pygame.display.flip()
 
-		self.player.validate_platform(self.platform)
-
 		self.sprites.update()
+
+		self.player.validate_platform(self.platform)
 
 	def stop(self):
 		pass
