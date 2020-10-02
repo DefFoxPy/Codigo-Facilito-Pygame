@@ -3,6 +3,7 @@ import sys
 
 from .config import *
 from .platform import Platform
+from .player import Player
 
 class Game:
 	def __init__(self):
@@ -22,11 +23,12 @@ class Game:
 
 	def generate_elements(self):
 		self.platform = Platform()
+		self.player = Player()
 
 		self.sprites = pygame.sprite.Group()
 
 		self.sprites.add(self.platform)
-
+		self.sprites.add(self.player)
 	def run(self):
 		while self.running:
 			self.events()

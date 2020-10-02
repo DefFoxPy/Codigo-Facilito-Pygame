@@ -5,3 +5,4 @@ TITLE = 'Facilito game!!'
 
 BLACK = (0, 0, 0)
 GREEN = (69, 184, 61)
+BLUE = (78, 137, 193)
