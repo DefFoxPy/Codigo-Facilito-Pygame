@@ -5,6 +5,8 @@ from .config import *
 from .platform import Platform
 from .player import Player
 
+reloj = pygame.time.Clock()
+
 class Game:
 	def __init__(self):
 		pygame.init()
@@ -37,6 +39,7 @@ class Game:
 			self.update()
 
 	def events(self):
+		reloj.tick(60)
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				self.running = False
@@ -49,6 +52,8 @@ class Game:
 
 	def update(self):
 		pygame.display.flip()
+
+		self.player.validate_platform(self.platform)
 
 		self.sprites.update()
 
