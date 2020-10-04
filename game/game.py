@@ -4,6 +4,7 @@ import sys
 from .config import *
 from .platform import Platform
 from .player import Player
+from .wall import Wall
 
 reloj = pygame.time.Clock()
 
@@ -27,10 +28,13 @@ class Game:
 		self.platform = Platform()
 		self.player = Player(100, self.platform.rect.top - 200)
 
+		self.wall = Wall(500, self.platform.rect.top)
+
 		self.sprites = pygame.sprite.Group()
 
 		self.sprites.add(self.platform)
 		self.sprites.add(self.player)
+		self.sprites.add(self.wall)
 
 	def run(self):
 		while self.running:
