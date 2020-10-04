@@ -11,3 +11,5 @@ RED = (184, 71, 88)
 PLAYER_GRAV = 1.2
 
 SPEED = 5
+
+MAX_WALLS = 10
