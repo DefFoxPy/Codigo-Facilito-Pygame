@@ -81,5 +81,9 @@ class Game:
 
 		self.player.validate_platform(self.platform)
 
+		wall = self.player.collide_with(self.walls)
+		if wall:
+			self.stop()
+
 	def stop(self):
-		pass
+		print('Colision')
