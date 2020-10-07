@@ -85,7 +85,10 @@ class Game:
 
 			wall = self.player.collide_with(self.walls)
 			if wall:
-				self.stop()
+				if self.player.collide_bottom(wall):
+					self.player.skid(wall)
+				else:
+					self.stop()
 
 	def stop(self):
 		self.player.stop()
