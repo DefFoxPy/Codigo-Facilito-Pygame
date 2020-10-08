@@ -7,8 +7,6 @@ from .platform import Platform
 from .player import Player
 from .wall import Wall
 
-reloj = pygame.time.Clock()
-
 class Game:
 	def __init__(self):
 		pygame.init()
@@ -18,6 +16,8 @@ class Game:
 
 		self.running = True
 		self.playing = True
+
+		self.clock = pygame.time.Clock()
 
 	def start(self):
 		self.new()
@@ -54,10 +54,11 @@ class Game:
 
 	def run(self):
 		while self.running:
+			self.clock.tick(FPS)
 			self.events()
 			self.update()
 			self.draw()
-			reloj.tick(60)
+			
 
 	def events(self):
 		for event in pygame.event.get():
