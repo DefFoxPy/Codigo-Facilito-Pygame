@@ -14,6 +14,7 @@ AZUL = (0, 0, 255)
 
 GRAVEDAD = 1.2
 VELOCIDAD = 5
+SALTO = -40
 
 class Jugador(pygame.sprite.Sprite):
 	
@@ -30,7 +31,9 @@ class Jugador(pygame.sprite.Sprite):
 		self.rect.bottom = y
 
 		self.pos_y = self.rect.bottom
-		self.velocidad = 0
+		self.velocidad = 0 
+
+		self.poder_saltar = True
 
 	def update(self):
 		self.velocidad += GRAVEDAD
@@ -38,12 +41,20 @@ class Jugador(pygame.sprite.Sprite):
 
 		self.rect.bottom = self.pos_y
 
+	def saltar(self):
+		if self.poder_saltar:
+			self.velocidad = SALTO
+			self.poder_saltar = False
+
 	def validar_plataforma(self, plataforma):
 		result = pygame.sprite.collide_rect(self, plataforma)
 
 		if result:
-			self.velocidad = 0
+			self.rebote()
 			self.pos_y = plataforma.rect.top
+
+	def rebote(self):
+		self.velocidad = self.velocidad * -0.75  
 
 
 class Plataforma(pygame.sprite.Sprite):
@@ -66,7 +77,7 @@ reloj = pygame.time.Clock()
 hecho = False
 
 plataforma = Plataforma(0, LARGO - 30)
-jugador = Jugador(30, 200)
+jugador = Jugador(30, LARGO - 30)
 
 lista_elementos = pygame.sprite.Group()
 
@@ -77,6 +88,10 @@ while not hecho:
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 			hecho = True
+
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_s:
+				jugador.saltar()
 
 	# update
 	lista_elementos.update()
