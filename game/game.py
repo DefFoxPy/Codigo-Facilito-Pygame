@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import random
@@ -21,6 +22,9 @@ class Game:
 		self.clock = pygame.time.Clock()
 
 		self.font = pygame.font.match_font(FONT)
+
+		self.dir = os.path.dirname(__file__)
+		self.dir_sounds = os.path.join(self.dir, 'sources/sounds')
 
 	def start(self):
 		self.new()
@@ -115,7 +119,8 @@ class Game:
 				self.score += 1
 				coin.kill()
 
-			print(self.score)
+				sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, 'coin.wav'))
+				sound.play()
 
 			self.update_elements(self.walls)
 			self.update_elements(self.coins)
@@ -133,13 +138,16 @@ class Game:
 
 		self.playing = False
 
+		sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, 'lose.wav'))
+		sound.play()
+
 
 	def stop_elements(self, elements):
 		for element in elements:
 			element.stop()
 
 	def draw_text(self):
-		self.display_text(str(self.score), 36, WHITE, WIDTH // 2, 40)
+		self.display_text(str('Score: {}'.format(self.score)), 36, WHITE, WIDTH // 2, 40)
 
 	def display_text(self, text, size, color, pos_x, pos_y):
 		font = pygame.font.Font(self.font, size)
