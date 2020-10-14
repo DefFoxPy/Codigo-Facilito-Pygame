@@ -17,7 +17,6 @@ class Game:
 		pygame.display.set_caption(TITLE)
 
 		self.running = True
-		self.playing = True
 
 		self.clock = pygame.time.Clock()
 
@@ -32,6 +31,7 @@ class Game:
 	def new(self):
 		self.score = 0
 		self.level = 0
+		self.playing = True
 		self.generate_elements()
 		self.run()
 
@@ -96,6 +96,9 @@ class Game:
 
 		if key[pygame.K_SPACE]:
 			self.player.jump()
+
+		if key[pygame.K_r] and not self.playing:
+			self.new()
 
 	def draw(self):
 		self.surface.fill(BLACK)
