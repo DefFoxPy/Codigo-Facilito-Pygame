@@ -101,34 +101,36 @@ class Game:
 		self.surface.fill(BLACK)
 		self.draw_text()
 		self.sprites.draw(self.surface)
+		pygame.display.flip()
 
 	def update(self):
-		if self.playing:
-			pygame.display.flip()
 
-			self.sprites.update()
+		if not self.playing:
+			return
 
-			self.player.validate_platform(self.platform)
+		self.sprites.update()
 
-			wall = self.player.collide_with(self.walls)
-			if wall:
-				if self.player.collide_bottom(wall):
-					self.player.skid(wall)
-				else:
-					self.stop()
+		self.player.validate_platform(self.platform)
 
-			coin = self.player.collide_with(self.coins)
-			if coin:
-				self.score += 1
-				coin.kill()
+		wall = self.player.collide_with(self.walls)
+		if wall:
+			if self.player.collide_bottom(wall):
+				self.player.skid(wall)
+			else:
+				self.stop()
 
-				sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, 'coin.wav'))
-				sound.play()
+		coin = self.player.collide_with(self.coins)
+		if coin:
+			self.score += 1
+			coin.kill()
 
-			self.update_elements(self.walls)
-			self.update_elements(self.coins)
+			sound = pygame.mixer.Sound(os.path.join(self.dir_sounds, 'coin.wav'))
+			sound.play()
 
-			self.generate_walls()
+		self.update_elements(self.walls)
+		self.update_elements(self.coins)
+
+		self.generate_walls()
 
 	def update_elements(self, elements):
 		for element in elements:
@@ -152,6 +154,10 @@ class Game:
 	def draw_text(self):
 		self.display_text(str('Score: {}'.format(self.score)), 36, WHITE, WIDTH // 2, TEXT_POSY)
 		self.display_text(str('Level: {}'.format(self.level)), 36, WHITE, 60, TEXT_POSY)
+
+		if not self.playing:
+			self.display_text('Perdiste', 60, WHITE, WIDTH // 2, HEIGHT // 2)
+			self.display_text('Preciona r para jugar de nuevo', 30, WHITE, WIDTH // 2, 100)		
 
 	def display_text(self, text, size, color, pos_x, pos_y):
 		font = pygame.font.Font(self.font, size)
